@@ -1,4 +1,6 @@
 $(function() {
+	var $login = $("#login"),
+		$chat = $("#chat");
 	var socket = io.connect("/");
 
 	socket.on("connect", function() {
@@ -15,15 +17,24 @@ $(function() {
 				setNickname($(this).val());
 			}
 		});
+
+		$chat.hide();
 	}
 
 	var setNickname = function(nickname) {
 		socket.emit("set_nickname", nickname, function(is_available) {
 			if (is_available) {
 				console.log("Nickname " + nickname + " is available");
+
+				setUpChat(nickname);
 			} else {
 				console.log("Nickname " + nickname + " is not available");
 			}
 		});
+	}
+
+	var setUpChat = function(nickname) {
+		$login.hide();
+		$chat.show();
 	}
 });
