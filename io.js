@@ -19,6 +19,10 @@ module.exports = function(io) {
 			sendMessage(socket.nickname, message);
 		});
 
+		socket.on("disconnect", function() {
+			sendMessage("SERVER", "User @" + socket.nickname + " has disconnected");
+		});
+
 		var sendMessage = function(nickname, message) {
 			io.sockets.emit("message", nickname, message);
 		}
