@@ -1,6 +1,7 @@
 $(function() {
 	var $login = $("#login"),
-		$chat = $("#chat");
+		$chat = $("#chat"),
+		$messages = $("#messages");
 	var socket = io.connect("/");
 
 	socket.on("connect", function() {
@@ -36,5 +37,21 @@ $(function() {
 	var setUpChat = function(nickname) {
 		$login.hide();
 		$chat.show();
+
+		$("#submit-message").click(function() {
+			sendMessage($("#message").val());
+		});
+
+		socket.on("message", function(nickname, message) {
+			addMessage(nickname, message);
+		});
+	}
+
+	var sendMessage = function(msg) {
+		socket.emit("message", msg);
+	}
+
+	var addMessage = function(nickname, message) {
+		$messages.append("<li>@" + nickname + ": " + message + "</li>");
 	}
 });
