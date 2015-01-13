@@ -8,6 +8,10 @@ app.listen(PORT, function() {
 	console.log("Listening on port " + PORT);
 });
 
+app.set("view options", {
+	layout: false
+});
+
 app.get("/", function(request, response) {
-	response.send("Hello world");
+	response.render("main.jade");
 });
