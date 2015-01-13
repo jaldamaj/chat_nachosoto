@@ -12,6 +12,8 @@ app.set("view options", {
 	layout: false
 });
 
+app.use(express.static(__dirname + "/static"));
+
 app.get("/", function(request, response) {
 	response.render("main.jade");
 });
