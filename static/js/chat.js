@@ -1,9 +1,23 @@
 $(function() {
-	$("#nickname").keyup(function(e) {
-		var code = e.which || e.keyCode;
+	var socket = io.connect("/");
 
-		if (code == 13) {
-			setNickname($(this).val());
-		}
+	socket.on("connect", function() {
+		console.log("Connected with socket");
+
+		init();
 	});
+
+	var init = function() {
+		$("#nickname").keyup(function(e) {
+			var code = e.which || e.keyCode;
+
+			if (code == 13) {
+				setNickname($(this).val());
+			}
+		});
+	}
+
+	var setNickname = function(nickname) {
+		socket.emit("set_nickname", nickname);
+	}
 });

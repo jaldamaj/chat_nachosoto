@@ -1,10 +1,14 @@
+var http = require("http");
 var express = require("express");
+var io = require("socket.io");
 
 var app = express();
+var server = http.createServer(app);
+var io = io.listen(server);
 
 var PORT = 8080;
 
-app.listen(PORT, function() {
+server.listen(PORT, function() {
 	console.log("Listening on port " + PORT);
 });
 
