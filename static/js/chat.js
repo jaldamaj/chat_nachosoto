@@ -18,6 +18,12 @@ $(function() {
 	}
 
 	var setNickname = function(nickname) {
-		socket.emit("set_nickname", nickname);
+		socket.emit("set_nickname", nickname, function(is_available) {
+			if (is_available) {
+				console.log("Nickname " + nickname + " is available");
+			} else {
+				console.log("Nickname " + nickname + " is not available");
+			}
+		});
 	}
 });
