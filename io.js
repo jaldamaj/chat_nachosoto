@@ -11,11 +11,17 @@ module.exports = function(io) {
 				socket.nickname = nickname;
 
 			callback(isAvailable);
+
+			sendMessage("SERVER", "User @" + nickname + " has connected");
 		});
 
 		socket.on("message", function(message) {
-			io.sockets.emit("message", socket.nickname, message);
+			sendMessage(socket.nickname, message);
 		});
+
+		var sendMessage = function(nickname, message) {
+			io.sockets.emit("message", nickname, message);
+		}
 
 		var isNicknameAvailable = function(nickname) {
 			var clients = io.sockets.sockets;
