@@ -7,12 +7,14 @@ module.exports = function(io) {
 
 			var isAvailable = isNicknameAvailable(nickname);
 
-			if (isAvailable)
+			if (isAvailable) {
 				socket.nickname = nickname;
+				sendMessage("SERVER", "User @" + nickname + " has connected");
+			}
 
 			callback(isAvailable);
 
-			sendMessage("SERVER", "User @" + nickname + " has connected");
+			//sendMessage("SERVER", "User @" + nickname + " has connected");
 		});
 
 		socket.on("message", function(message) {
