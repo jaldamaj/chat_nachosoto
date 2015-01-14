@@ -6,7 +6,7 @@ var app = express();
 var server = http.createServer(app);
 var io = io.listen(server);
 
-var PORT = 8080;
+var PORT = process.env.PORT || 8080;
 
 server.listen(PORT, function() {
 	console.log("Listening on port " + PORT);
